@@ -1,0 +1,1 @@
+It is simple and easy project for Anime recommendation system made with help of python and flask

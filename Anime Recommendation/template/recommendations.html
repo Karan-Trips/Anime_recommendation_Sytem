@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anime Recommendations</title>
+    <style>
+        body {
+            background-image: url('static/madara.jpg');
+            
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: rgb(255, 0, 0);
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        p {
+            margin-bottom: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% if result %}
+        <h1>Recommended Animes:</h1>
+        <ul>
+            {% for anime in result %}
+                <li>
+                    <h2>{{ anime.name }}</h2>
+                    <p>Genre: {{ anime.genre }}</p>
+                    <p>Episode count: {{ anime.episodes }}</p>
+                    <p>Rating out of 10: {{ anime.rating }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>No recommendations found.</h1>
+    {% endif %}
+</body>
+</html>
