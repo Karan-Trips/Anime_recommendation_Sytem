@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <title>Anime Recommender</title>
-    <style>
+    <style >
         form {
             max-width: 400px;
             margin: 0 auto;
             background-color: rgb(116, 102, 244);
             padding: 20px;
             border-radius: 5px;
+            text-align: center;
+            margin-top: 150px;
+
+         
            
         }
 
@@ -24,7 +27,7 @@
         input[type="submit"] {
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: #2400f1;
             color: #fff;
             border: none;
             border-radius: 3px;
@@ -34,13 +37,27 @@
         input[type="submit"]:hover {
             background-color: #ff0000;
         }
+        
+
     </style>
 </head>
 <body style="background-image: url('static/madara.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-attachment: fixed;">
-    <form action="/recommend" method="POST">
-        <legend>Anime Name : </legend>
-        <input type="text" name="anime" placeholder="Enter anime name">
+<form action="/recommend" method="POST">
+    <fieldset>
+        <legend>Anime Name:</legend>
+        <label for="anime">Enter anime name:</label>
+        <input type="text" id="anime" name="anime" placeholder="Enter anime name">
         <input type="submit" value="Recommend">
-    </form>
+    </fieldset>
+</form>
+
+
+<form action="/plots" >
+    <fieldset>
+        <legend>GRAPH:</legend>
+        <input type="submit" value="Visualization">
+    </fieldset>
+</form>
+
 </body>
 </html>
