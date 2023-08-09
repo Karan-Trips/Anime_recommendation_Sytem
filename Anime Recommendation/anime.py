@@ -5,10 +5,10 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import MaxAbsScaler
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 app = Flask(__name__, template_folder='template')
 
-# Load the data and set up the recommendations model
 df = pd.read_csv('anime.csv')
 
 df.head()
@@ -20,8 +20,10 @@ episode_ = episode_.fillna(episode_.median())
 type_ = pd.get_dummies(df['type'])
 genre_ = df['genre'].str.get_dummies(sep=',')
 genre_.head(10)
+
 X = pd.concat([genre_, type_, episode_, df['rating'], df['members']], axis=1)
 X.head(10)
+
 scaled = MaxAbsScaler()
 X = scaled.fit_transform(X)
 recommendations = NearestNeighbors(n_neighbors=10).fit(X)
@@ -36,17 +38,18 @@ def home():
 
 @app.route("/recommend", methods=['POST'])
 def recommend():
-    anime = request.form['anime']
+    anime = request.form['anime'].lower()
     result = recommend_me(anime)
     return render_template('recommendations.html', result=result)
 
 
 def get_index(x):
-    return df[df['name'] == x].index.tolist()[0]
+    return df[df['name'].str.lower() == x.lower()].index.tolist()[0]
 
 
 def recommend_me(anime):
     recommendations = []
+    anime = anime.lower()  
     index = get_index(anime)
     for i in anime_indices[index][:]:
         recommendations.append(
@@ -57,8 +60,10 @@ def recommend_me(anime):
         )
     return recommendations
 
+
 @app.route('/plots')
 def ploting():
+    
   
     plt.figure(figsize=(15, 7))
     plt.ylim(0.0, 10.0)
@@ -69,7 +74,15 @@ def ploting():
 
     genre_member = df.groupby("genre", as_index=False)["members"].sum()
     genre_member.sort_values(by="members", ascending=False, inplace=True)
-    genre_member.head(3)
+    plt.figure(figsize=(10, 6))
+    top_3_genres = genre_member.head(3)
+    plt.bar(top_3_genres["genre"], top_3_genres["members"])
+    plt.xlabel("Genre")
+    plt.ylabel("Total Members")
+    plt.title("Top 5 Genres with Highest Total Members")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.savefig('static/barchart2.jpg')
 
     plt.figure()
     g = sns.scatterplot(data=df, x="members", y="rating", hue="type")
@@ -83,6 +96,10 @@ def ploting():
     plt.legend()
     plt.title("Distribution of Anime Type")
     plt.savefig('static/piechart.jpg')
+
+    plt.figure(figsize=(10,10))
+    sns.countplot(x='type',data=df)
+    plt.savefig('static/countplot.jpg')
 
     return render_template('plots.html')
 

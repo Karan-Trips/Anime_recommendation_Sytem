@@ -2,23 +2,101 @@
 <html>
 <head>
     <title>Plots</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        h1 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        div {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-in-out;
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+
+        div:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+       
+
+        /* Keyframe animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+    </style>
+    <script>
+        function enlargeImage(imgElement) {
+            imgElement.style.transform = "scale(1.5)"; // Enlarge the image
+            imgElement.style.transition = "transform 0.3s ease"; // Add transition effect
+        }
+
+        function resetImage(imgElement) {
+            imgElement.style.transform = "scale(1)"; // Reset the image size
+        }
+    </script>
 </head>
 <body>
     <h1>Popular Anime</h1>
-    <div>
+    <div onclick="enlargeImage(this)" onmouseleave="resetImage(this)">
         <h2>Top 5 Popular Anime</h2>
-        <!-- Placeholder for the bar chart -->
         <img src="{{ url_for('static', filename='barchart.jpg') }}" alt="Bar Chart">
     </div>
-    <div>
+    <div onclick="enlargeImage(this)" onmouseleave="resetImage(this)">
+        <h2>Top 5 Popular Anime Genre</h2>
+        
+        <img src="{{ url_for('static', filename='barchart2.jpg') }}" alt="bar Chart-2">
+    </div>
+    <div onclick="enlargeImage(this)" onmouseleave="resetImage(this)">
         <h2>Rating vs Members by Type</h2>
-        <!-- Placeholder for the scatterplot -->
+        
         <img src="{{ url_for('static', filename='scatterplot.jpg') }}" alt="Scatterplot">
     </div>
-    <div>
+    <div onclick="enlargeImage(this)" onmouseleave="resetImage(this)">
         <h2>Distribution of Anime Type</h2>
-        <!-- Placeholder for the pie chart -->
+        
         <img src="{{ url_for('static', filename='piechart.jpg') }}" alt="Pie Chart">
+    </div>
+    <div onclick="enlargeImage(this)" onmouseleave="resetImage(this)">
+        <h2>Distribution of Anime Type</h2>
+        
+        <img src="{{ url_for('static', filename='countplot.jpg') }}" alt="Count Chart">
     </div>
 </body>
 </html>

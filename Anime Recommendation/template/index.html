@@ -6,13 +6,15 @@
         form {
             max-width: 400px;
             margin: 0 auto;
-            background-color: rgb(116, 102, 244);
+            background-color: rgb(149, 151, 248);
             padding: 20px;
-            border-radius: 5px;
+            border-radius: 25px;
             text-align: center;
+            color: rgb(255, 0, 0);
             margin-top: 150px;
-
-         
+            opacity: 0;
+            transform: translateY(20px); 
+            transition: opacity 0.5s ease, transform 0.5s ease;
            
         }
 
@@ -32,20 +34,42 @@
             border: none;
             border-radius: 3px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .slide-in {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         input[type="submit"]:hover {
             background-color: #ff0000;
+            animation: pulse 0.5s ease infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         
 
     </style>
+     <script>
+        
+        window.addEventListener('load', function() {
+            var forms = document.querySelectorAll('form');
+            for (var i = 0; i < forms.length; i++) {
+                forms[i].classList.add('slide-in');
+            }
+        });
+    </script>
 </head>
-<body style="background-image: url('static/madara.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-attachment: fixed;">
+
+<body style="background-image: url('static/topg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-attachment: fixed;">
 <form action="/recommend" method="POST">
     <fieldset>
-        <legend>Anime Name:</legend>
-        <label for="anime">Enter anime name:</label>
+        <legend>Anime Recommender:</legend>
+      <b>  <label for="anime">Enter anime name:</label></b>
+        <br><br>
         <input type="text" id="anime" name="anime" placeholder="Enter anime name">
         <input type="submit" value="Recommend">
     </fieldset>
